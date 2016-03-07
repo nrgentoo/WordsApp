@@ -8,9 +8,10 @@
     tools:context=".view.main.MainActivity">
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_start"
         style="@style/Button_Orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/start_training"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:text="@string/start_training" />
 </RelativeLayout>
