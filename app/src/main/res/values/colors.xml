@@ -2,5 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/orange</color>
+
+    <!-- Button colors -->
+    <color name="colorWhite_transparent50">#80ffffff</color>
+    <color name="orange_dark_transparent50">#80a94a37</color>
+    <color name="orange">#fc6e51</color>
 </resources>

@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- BUTTONS -->
+    <style name="BaseButton_Orange"  parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/bg_button_orange</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:maxHeight">@dimen/button_height</item>
+    </style>
+
+    <style name="Button_Orange" parent="BaseButton_Orange">
+
+    </style>
+
 </resources>
