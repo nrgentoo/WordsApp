@@ -7,6 +7,7 @@ import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.nrgentoo.wordsapp.common.di.HasComponent;
 import com.nrgentoo.wordsapp.common.di.component.ApplicationComponent;
 import com.nrgentoo.wordsapp.network.SkyengAPI;
+import com.nrgentoo.wordsapp.store.DisplayMetricsStore;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class ActionsCreator extends RxActionCreator implements Actions {
 
     @Inject
     SkyengAPI skyengAPI;
+
+    @Inject
+    DisplayMetricsStore displayMetricsStore;
 
     // --------------------------------------------------------------------------------------------
     //      CONSTRUCTOR
@@ -49,7 +53,9 @@ public class ActionsCreator extends RxActionCreator implements Actions {
                 Keys.PARAM_MEANING_IDS, meaningIds);
         if (hasRxAction(action)) return;
 
-        addRxAction(action, skyengAPI.getWords(meaningIds, 320)
+        int width = displayMetricsStore.getDisplayWidth();
+
+        addRxAction(action, skyengAPI.getWords(meaningIds, width)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(wordTasks -> {
@@ -62,5 +68,15 @@ public class ActionsCreator extends RxActionCreator implements Actions {
                     postError(action, throwable);
                     removeRxAction(action);
                 }));
+    }
+
+    @Override
+    public void saveDisplayMetrics(int width, int height) {
+        RxAction action = newRxAction(SAVE_DISPLAY_METRICS,
+                Keys.PARAM_DISPLAY_WIDTH, width,
+                Keys.PARAM_DISPLAY_HEIGHT, height);
+
+        // post action
+        postRxAction(action);
     }
 }
