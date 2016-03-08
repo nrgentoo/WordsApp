@@ -51,6 +51,7 @@ public class FinishCardPresenterImpl implements FinishCardPresenter {
 
     @Override
     public void runAgain() {
-        // run again action
+        // run again training
+        actions.startTraining();
     }
 }
