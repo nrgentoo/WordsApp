@@ -57,6 +57,6 @@
         style="@style/Button_White.Borderless"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"
-        tools:text="Не помню"/>
+        android:text="@string/dont_remember"/>
 
 </LinearLayout>

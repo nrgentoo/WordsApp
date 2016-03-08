@@ -87,4 +87,21 @@ public class ActionsCreator extends RxActionCreator implements Actions {
         // post action
         postRxAction(action);
     }
+
+    @Override
+    public void startTraining() {
+        RxAction action = newRxAction(START_TRAINING);
+
+        // post action
+        postRxAction(action);
+    }
+
+    @Override
+    public void moveToAnswer(boolean isRightAnswer) {
+        RxAction action = newRxAction(MOVE_TO_ANSWER,
+                Keys.PARAM_IS_RIGHT_ANSWER, isRightAnswer);
+
+        // post action
+        postRxAction(action);
+    }
 }

@@ -13,5 +13,9 @@ public interface WordTasksStore {
 
     List<WordTask> getWordTasks();
 
-    List<WordTask> getShuffled(int size);
+    WordTask getNext();
+
+    int getRightAnswersCount();
+
+    int getTotalWordsCount();
 }

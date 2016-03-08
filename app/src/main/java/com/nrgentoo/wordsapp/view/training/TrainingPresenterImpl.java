@@ -11,7 +11,6 @@ import com.nrgentoo.wordsapp.common.di.component.ActivityComponent;
 import com.nrgentoo.wordsapp.store.WordTasksStore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -95,8 +94,17 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                 switch (change.getRxAction().getType()) {
                     case Actions.GET_WORDS:
                         view.hideProgress();
+
+                        // start training
+                        actions.startTraining();
+                        break;
+                    case Actions.START_TRAINING:
                         // show first card
-                        view.showTask(wordTasksStore.getShuffled(10).get(0));
+                        view.nextTask();
+                        break;
+                    case Actions.MOVE_TO_ANSWER:
+                        // show answer card
+                        view.showAnswerCard();
                         break;
                 }
                 break;
