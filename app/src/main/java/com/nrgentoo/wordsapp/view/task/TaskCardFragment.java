@@ -7,19 +7,20 @@ import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nrgentoo.wordsapp.R;
 import com.nrgentoo.wordsapp.view.common.AbstractFragment;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,8 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
     TaskPresenter presenter;
 
     TextToSpeech textToSpeech;
+
+    Map<String, Button> answerButtonIdMap = new HashMap<>();
 
     // --------------------------------------------------------------------------------------------
     //      UI REFERENCES
@@ -79,6 +82,30 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
         presenter.onDestroy();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // set listeners
+        bt_answer1.setOnClickListener(v -> presenter.checkAnswer(bt_answer1.getText().toString()));
+        bt_answer2.setOnClickListener(v -> presenter.checkAnswer(bt_answer2.getText().toString()));
+        bt_answer3.setOnClickListener(v -> presenter.checkAnswer(bt_answer3.getText().toString()));
+        bt_answer4.setOnClickListener(v -> presenter.checkAnswer(bt_answer4.getText().toString()));
+        bt_dont_remember.setOnClickListener(v -> presenter.dontRemember());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // clear listeners
+        bt_answer1.setOnClickListener(null);
+        bt_answer2.setOnClickListener(null);
+        bt_answer3.setOnClickListener(null);
+        bt_answer4.setOnClickListener(null);
+        bt_dont_remember.setOnClickListener(null);
+    }
+
     // --------------------------------------------------------------------------------------------
     //      TASK VIEW INTERFACE
     // --------------------------------------------------------------------------------------------
@@ -94,6 +121,12 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
         bt_answer2.setText(answers.get(1));
         bt_answer3.setText(answers.get(2));
         bt_answer4.setText(answers.get(3));
+
+        // map buttons to answers
+        answerButtonIdMap.put(answers.get(0), bt_answer1);
+        answerButtonIdMap.put(answers.get(1), bt_answer2);
+        answerButtonIdMap.put(answers.get(2), bt_answer3);
+        answerButtonIdMap.put(answers.get(3), bt_answer4);
     }
 
     @Override
@@ -110,6 +143,22 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
         }
     }
 
+    @Override
+    public void setRightAnswerGreen(String answer) {
+        Button button = answerButtonIdMap.get(answer);
+        setBackground(button, R.drawable.bg_button_green);
+    }
+
+    @Override
+    public void setWrongAnswerRed(String answer) {
+        Button button = answerButtonIdMap.get(answer);
+        setBackground(button, R.drawable.bg_button_red);
+    }
+
+    // --------------------------------------------------------------------------------------------
+    //      PRIVATE METHODS
+    // --------------------------------------------------------------------------------------------
+
     private void speakOut(String word) {
         // init textToSpeech
         textToSpeech = new TextToSpeech(getContext(), status -> {
@@ -122,5 +171,16 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
                 }
             }
         });
+    }
+
+    private void setBackground(View view, int drawableId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(ContextCompat.getDrawable(getContext(),
+                    drawableId));
+        } else {
+            //noinspection deprecation
+            view.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),
+                    drawableId));
+        }
     }
 }

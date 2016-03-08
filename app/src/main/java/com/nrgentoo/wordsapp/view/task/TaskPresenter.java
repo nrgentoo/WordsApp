@@ -10,4 +10,6 @@ public interface TaskPresenter {
     void onDestroy();
 
     void checkAnswer(String answer);
+
+    void dontRemember();
 }

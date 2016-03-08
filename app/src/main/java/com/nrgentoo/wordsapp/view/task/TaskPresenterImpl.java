@@ -76,7 +76,26 @@ public class TaskPresenterImpl implements TaskPresenter {
 
     @Override
     public void checkAnswer(String answer) {
+        if (answer.equals(wordTask.translation)) {
+            // right answer, set button to green
+            view.setRightAnswerGreen(answer);
 
+            // move to the answer card
+        } else {
+            // wrong answer, set button to red and right answer to green
+            view.setWrongAnswerRed(answer);
+            view.setRightAnswerGreen(wordTask.translation);
+
+            // move to the answer card
+        }
+    }
+
+    @Override
+    public void dontRemember() {
+        // set right button to green
+        view.setRightAnswerGreen(wordTask.translation);
+
+        // move to the answer card
     }
 
     // --------------------------------------------------------------------------------------------
