@@ -102,6 +102,10 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                         // show first card
                         view.nextTask();
                         break;
+                    case Actions.MOVE_TO_ANSWER:
+                        // show answer card
+                        view.showAnswerCard();
+                        break;
                 }
                 break;
         }

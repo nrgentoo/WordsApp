@@ -17,12 +17,15 @@ import java.util.List;
  */
 public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
 
+    private static final int TOTAL_WORDS = 10;
+
     // --------------------------------------------------------------------------------------------
     //      FIELDS
     // --------------------------------------------------------------------------------------------
 
     private List<WordTask> wordTasks;
     private List<WordTask> shuffled;
+    private int rightAnswersCount;
 
     // --------------------------------------------------------------------------------------------
     //      CONSTRUCTOR
@@ -50,6 +53,16 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
         }
     }
 
+    @Override
+    public int getRightAnswersCount() {
+        return rightAnswersCount;
+    }
+
+    @Override
+    public int getTotalWordsCount() {
+        return TOTAL_WORDS;
+    }
+
     // --------------------------------------------------------------------------------------------
     //      RX STORE STORE
     // --------------------------------------------------------------------------------------------
@@ -61,8 +74,16 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
                 wordTasks = action.get(Keys.RESULT_GET_WORDS);
                 break;
             case Actions.START_TRAINING:
+                // reset state for new training
+                resetState();
+
                 // shuffle words
                 shuffleWords();
+                break;
+            case Actions.MOVE_TO_ANSWER:
+                // update score
+                boolean isRightAnswer = action.get(Keys.PARAM_IS_RIGHT_ANSWER);
+                if (isRightAnswer) rightAnswersCount++;
                 break;
             default:
                 return;
@@ -80,6 +101,11 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
         shuffled.addAll(wordTasks);
         Collections.shuffle(shuffled);
 
-        shuffled = shuffled.subList(0, 10);
+        shuffled = shuffled.subList(0, TOTAL_WORDS);
+    }
+
+    private void resetState() {
+        shuffled = null;
+        rightAnswersCount = 0;
     }
 }

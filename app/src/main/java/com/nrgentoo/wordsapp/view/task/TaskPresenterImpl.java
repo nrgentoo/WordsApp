@@ -1,5 +1,6 @@
 package com.nrgentoo.wordsapp.view.task;
 
+import com.nrgentoo.wordsapp.actions.Actions;
 import com.nrgentoo.wordsapp.common.Utils;
 import com.nrgentoo.wordsapp.common.di.HasComponent;
 import com.nrgentoo.wordsapp.common.di.component.FragmentComponent;
@@ -27,6 +28,9 @@ public class TaskPresenterImpl implements TaskPresenter {
 
     @Inject
     WordTasksStore wordTasksStore;
+
+    @Inject
+    Actions actions;
 
     WordTask wordTask;
 
@@ -81,12 +85,14 @@ public class TaskPresenterImpl implements TaskPresenter {
             view.setRightAnswerGreen(answer);
 
             // move to the answer card
+            actions.moveToAnswer(true);
         } else {
             // wrong answer, set button to red and right answer to green
             view.setWrongAnswerRed(answer);
             view.setRightAnswerGreen(wordTask.translation);
 
             // move to the answer card
+            actions.moveToAnswer(false);
         }
     }
 
@@ -96,6 +102,7 @@ public class TaskPresenterImpl implements TaskPresenter {
         view.setRightAnswerGreen(wordTask.translation);
 
         // move to the answer card
+        actions.moveToAnswer(false);
     }
 
     // --------------------------------------------------------------------------------------------

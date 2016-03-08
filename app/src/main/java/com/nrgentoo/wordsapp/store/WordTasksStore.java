@@ -14,4 +14,8 @@ public interface WordTasksStore {
     List<WordTask> getWordTasks();
 
     WordTask getNext();
+
+    int getRightAnswersCount();
+
+    int getTotalWordsCount();
 }

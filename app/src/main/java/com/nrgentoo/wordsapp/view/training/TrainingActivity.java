@@ -90,4 +90,9 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
                 .add(R.id.container, new TaskCardFragment())
                 .commit();
     }
+
+    @Override
+    public void showAnswerCard() {
+        // show answer fragment
+    }
 }
