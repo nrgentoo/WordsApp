@@ -5,6 +5,8 @@ import com.nrgentoo.wordsapp.common.di.module.ActivityModule;
 import com.nrgentoo.wordsapp.common.di.module.FragmentModule;
 import com.nrgentoo.wordsapp.view.answercard.AnswerCardFragment;
 import com.nrgentoo.wordsapp.view.answercard.AnswerCardPresenterImpl;
+import com.nrgentoo.wordsapp.view.finishcard.FinishCardFragment;
+import com.nrgentoo.wordsapp.view.finishcard.FinishCardPresenterImpl;
 import com.nrgentoo.wordsapp.view.task.TaskCardFragment;
 import com.nrgentoo.wordsapp.view.task.TaskPresenterImpl;
 
@@ -25,4 +27,8 @@ public interface FragmentComponent {
     void inject(AnswerCardPresenterImpl answerCardPresenter);
 
     void inject(AnswerCardFragment answerCardFragment);
+
+    void inject(FinishCardPresenterImpl finishCardPresenter);
+
+    void inject(FinishCardFragment finishCardFragment);
 }

@@ -14,4 +14,6 @@ public interface TrainingView {
     void nextTask();
 
     void showAnswerCard();
+
+    void showFinishCard();
 }
