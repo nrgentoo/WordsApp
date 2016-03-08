@@ -18,4 +18,6 @@ public interface WordTasksStore {
     int getRightAnswersCount();
 
     int getTotalWordsCount();
+
+    boolean isTrainingInProgress();
 }

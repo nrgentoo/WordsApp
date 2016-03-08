@@ -27,6 +27,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     private List<WordTask> wordTasks;
     private Stack<WordTask> shuffled;
     private int rightAnswersCount;
+    private boolean trainingInProgress;
 
     // --------------------------------------------------------------------------------------------
     //      CONSTRUCTOR
@@ -64,6 +65,11 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
         return TOTAL_WORDS;
     }
 
+    @Override
+    public boolean isTrainingInProgress() {
+        return trainingInProgress;
+    }
+
     // --------------------------------------------------------------------------------------------
     //      RX STORE STORE
     // --------------------------------------------------------------------------------------------
@@ -77,6 +83,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
             case Actions.START_TRAINING:
                 // reset state for new training
                 resetState();
+                trainingInProgress = true;
 
                 // shuffle words
                 shuffleWords();
@@ -91,6 +98,9 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
                 if (!shuffled.isEmpty()) {
                     shuffled.pop();
                 }
+                break;
+            case Actions.FINISH_TRAINING:
+                resetState();
                 break;
             default:
                 return;
@@ -115,5 +125,6 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     private void resetState() {
         shuffled = null;
         rightAnswersCount = 0;
+        trainingInProgress = false;
     }
 }

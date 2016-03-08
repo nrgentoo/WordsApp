@@ -10,4 +10,6 @@ public interface TrainingPresenter {
     void onDestroy();
 
     void getWordTasks();
+
+    void finishTraining();
 }
