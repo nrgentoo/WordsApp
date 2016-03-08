@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 
 import com.nrgentoo.wordsapp.R;
 import com.nrgentoo.wordsapp.model.WordTask;
+import com.nrgentoo.wordsapp.view.answercard.AnswerCardFragment;
 import com.nrgentoo.wordsapp.view.common.AbstractActivity;
 import com.nrgentoo.wordsapp.view.task.TaskCardFragment;
 
@@ -94,5 +95,9 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
     @Override
     public void showAnswerCard() {
         // show answer fragment
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                .replace(R.id.container, new AnswerCardFragment())
+                .commit();
     }
 }
