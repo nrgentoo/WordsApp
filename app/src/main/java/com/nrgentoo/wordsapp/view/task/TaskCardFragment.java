@@ -1,17 +1,25 @@
 package com.nrgentoo.wordsapp.view.task;
 
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nrgentoo.wordsapp.R;
 import com.nrgentoo.wordsapp.view.common.AbstractFragment;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -26,6 +34,8 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
 
     @Inject
     TaskPresenter presenter;
+
+    TextToSpeech textToSpeech;
 
     // --------------------------------------------------------------------------------------------
     //      UI REFERENCES
@@ -87,7 +97,30 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
     }
 
     @Override
-    public void playSound(String soundUrl) {
+    public void playSound(String soundUrl, String word) {
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(getContext(), Uri.parse("http:" + soundUrl));
+            mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            // play with text-to-speech
+            speakOut(word);
+        }
+    }
 
+    private void speakOut(String word) {
+        // init textToSpeech
+        textToSpeech = new TextToSpeech(getContext(), status -> {
+            if (status == TextToSpeech.SUCCESS) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    textToSpeech.speak(word, TextToSpeech.QUEUE_FLUSH, null, null);
+                } else {
+                    //noinspection deprecation
+                    textToSpeech.speak(word, TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }
+        });
     }
 }

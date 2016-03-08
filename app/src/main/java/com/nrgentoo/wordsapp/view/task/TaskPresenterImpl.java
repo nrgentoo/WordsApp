@@ -66,7 +66,7 @@ public class TaskPresenterImpl implements TaskPresenter {
         view.setAnswers(answers);
 
         // play sound
-        view.playSound(wordTask.soundUrl);
+        view.playSound(wordTask.soundUrl, wordTask.text);
     }
 
     @Override
