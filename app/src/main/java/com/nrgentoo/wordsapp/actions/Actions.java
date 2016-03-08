@@ -15,6 +15,7 @@ public interface Actions {
     String SAVE_DISPLAY_METRICS = "save_display_metrics";
     String START_TRAINING = "start_training";
     String MOVE_TO_ANSWER = "move_to_answer";
+    String MOVE_TO_NEXT_WORD = "move_to_next_word";
 
     // --------------------------------------------------------------------------------------------
     //      METHODS
@@ -27,4 +28,6 @@ public interface Actions {
     void startTraining();
 
     void moveToAnswer(boolean isRightAnswer);
+
+    void moveToNextWord();
 }

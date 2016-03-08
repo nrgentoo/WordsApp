@@ -74,7 +74,7 @@ public class AnswerCardFragment extends AbstractFragment implements AnswerCardVi
         super.onResume();
 
         // set listeners
-        bt_next.setOnClickListener(v -> presenter.moveToNextTask());
+        bt_next.setOnClickListener(v -> presenter.moveToNextWord());
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.nrgentoo.wordsapp.view.training;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -87,9 +88,18 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
 
     @Override
     public void nextTask() {
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new TaskCardFragment())
-                .commit();
+        if (getSupportFragmentManager().findFragmentById(R.id.container) == null) {
+            // add first fragment without animation transition
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new TaskCardFragment())
+                    .commit();
+        } else {
+            // replace with next task fragment with animation transition
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                    .replace(R.id.container, new TaskCardFragment())
+                    .commit();
+        }
     }
 
     @Override

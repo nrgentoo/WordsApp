@@ -11,6 +11,7 @@ import com.nrgentoo.wordsapp.model.WordTask;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * {@link WordTasksStore} implementation
@@ -24,7 +25,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     // --------------------------------------------------------------------------------------------
 
     private List<WordTask> wordTasks;
-    private List<WordTask> shuffled;
+    private Stack<WordTask> shuffled;
     private int rightAnswersCount;
 
     // --------------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     @Override
     public WordTask getNext() {
         if (!shuffled.isEmpty()) {
-            return shuffled.get(shuffled.size() - 1);
+            return shuffled.peek();
         } else {
             return null;
         }
@@ -85,6 +86,12 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
                 boolean isRightAnswer = action.get(Keys.PARAM_IS_RIGHT_ANSWER);
                 if (isRightAnswer) rightAnswersCount++;
                 break;
+            case Actions.MOVE_TO_NEXT_WORD:
+                // pop recent word
+                if (!shuffled.isEmpty()) {
+                    shuffled.pop();
+                }
+                break;
             default:
                 return;
         }
@@ -97,11 +104,12 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     // --------------------------------------------------------------------------------------------
 
     private void shuffleWords() {
-        shuffled = new ArrayList<>();
-        shuffled.addAll(wordTasks);
-        Collections.shuffle(shuffled);
+        List<WordTask> shuffledList = new ArrayList<>();
+        shuffledList.addAll(wordTasks);
+        Collections.shuffle(shuffledList);
 
-        shuffled = shuffled.subList(0, TOTAL_WORDS);
+        shuffled = new Stack<>();
+        shuffled.addAll(shuffledList.subList(0, TOTAL_WORDS));
     }
 
     private void resetState() {

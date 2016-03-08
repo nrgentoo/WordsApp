@@ -9,5 +9,5 @@ public interface AnswerCardPresenter {
 
     void onDestroy();
 
-    void moveToNextTask();
+    void moveToNextWord();
 }

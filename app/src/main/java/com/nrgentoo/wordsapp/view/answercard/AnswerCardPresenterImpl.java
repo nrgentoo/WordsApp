@@ -58,7 +58,8 @@ public class AnswerCardPresenterImpl implements AnswerCardPresenter {
     }
 
     @Override
-    public void moveToNextTask() {
+    public void moveToNextWord() {
         // move to next task action
+        actions.moveToNextWord();
     }
 }
