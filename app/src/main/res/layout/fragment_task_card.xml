@@ -12,6 +12,7 @@
     android:background="@android:color/white">
 
     <TextView
+        android:id="@+id/tv_word"
         style="@style/TP_Display"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -20,6 +21,7 @@
         tools:text="apricot" />
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_answer1"
         style="@style/Button_White"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"
@@ -27,6 +29,7 @@
         tools:text="баклажан"/>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_answer2"
         style="@style/Button_White"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"
@@ -34,6 +37,7 @@
         tools:text="персик"/>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_answer3"
         style="@style/Button_White"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"
@@ -41,6 +45,7 @@
         tools:text="абрикос"/>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_answer4"
         style="@style/Button_White"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"
@@ -48,6 +53,7 @@
         tools:text="не помню"/>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/bt_dont_remember"
         style="@style/Button_White.Borderless"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_height"

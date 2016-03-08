@@ -1,6 +1,5 @@
 package com.nrgentoo.wordsapp.common.di.module;
 
-import android.app.Activity;
 import android.content.res.Resources;
 
 import com.nrgentoo.wordsapp.view.common.AbstractActivity;
