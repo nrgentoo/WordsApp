@@ -71,6 +71,14 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
         presenter.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        // finish training
+        presenter.finishTraining();
+    }
+
     // --------------------------------------------------------------------------------------------
     //      TRAINING VIEW INTERFACE
     // --------------------------------------------------------------------------------------------

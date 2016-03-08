@@ -16,6 +16,7 @@ public interface Actions {
     String START_TRAINING = "start_training";
     String MOVE_TO_ANSWER = "move_to_answer";
     String MOVE_TO_NEXT_WORD = "move_to_next_word";
+    String FINISH_TRAINING = "finish_training";
 
     // --------------------------------------------------------------------------------------------
     //      METHODS
@@ -30,4 +31,6 @@ public interface Actions {
     void moveToAnswer(boolean isRightAnswer);
 
     void moveToNextWord();
+
+    void finishTraining();
 }

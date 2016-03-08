@@ -70,17 +70,25 @@ public class TrainingPresenterImpl implements TrainingPresenter {
 
     @Override
     public void getWordTasks() {
-        view.showProgress();
+        if (!wordTasksStore.isTrainingInProgress()) {
+            view.showProgress();
 
-        // get meaning ids
-        int[] intIds = resources.getIntArray(R.array.meaning_ids);
-        List<Long> meaningIds = new ArrayList<>();
-        for (int id : intIds) {
-            meaningIds.add((long) id);
+            // get meaning ids
+            int[] intIds = resources.getIntArray(R.array.meaning_ids);
+            List<Long> meaningIds = new ArrayList<>();
+            for (int id : intIds) {
+                meaningIds.add((long) id);
+            }
+
+            // start action
+            actions.getWords(meaningIds);
         }
+    }
 
-        // start action
-        actions.getWords(meaningIds);
+    @Override
+    public void finishTraining() {
+        // finish training
+        actions.finishTraining();
     }
 
     // --------------------------------------------------------------------------------------------
@@ -112,6 +120,7 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                             view.nextTask();
                         } else {
                             // finish training
+                            view.showFinishCard();
                         }
                         break;
                 }

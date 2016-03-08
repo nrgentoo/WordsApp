@@ -112,4 +112,12 @@ public class ActionsCreator extends RxActionCreator implements Actions {
         // post action
         postRxAction(action);
     }
+
+    @Override
+    public void finishTraining() {
+        RxAction action = newRxAction(FINISH_TRAINING);
+
+        // post action
+        postRxAction(action);
+    }
 }
