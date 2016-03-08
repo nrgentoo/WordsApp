@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.nrgentoo.wordsapp.R;
 import com.nrgentoo.wordsapp.actions.Actions;
 import com.nrgentoo.wordsapp.view.common.AbstractActivity;
+import com.nrgentoo.wordsapp.view.training.TrainingActivity;
 
 import javax.inject.Inject;
 
@@ -72,6 +73,6 @@ public class MainActivity extends AbstractActivity {
 
     private void startTraining() {
         // launch training activity
-        Toast.makeText(this, "Start training", Toast.LENGTH_SHORT).show();
+        startActivity(TrainingActivity.getCallingIntent(this));
     }
 }
