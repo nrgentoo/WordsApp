@@ -9,6 +9,7 @@ import com.nrgentoo.wordsapp.store.DisplayMetricsStoreImpl;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import de.greenrobot.event.EventBus;
 
 /**
  * Application Component
@@ -19,6 +20,8 @@ public interface ApplicationComponent {
 
     // expose to sub-graphs
     Actions actions();
+
+    EventBus eventBus();
 
     // injections
     void inject(App app);

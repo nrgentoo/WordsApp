@@ -1,6 +1,7 @@
 package com.nrgentoo.wordsapp.common.di.module;
 
 import android.app.Activity;
+import android.content.res.Resources;
 
 import com.nrgentoo.wordsapp.view.common.AbstractActivity;
 import com.nrgentoo.wordsapp.view.training.TrainingPresenter;
@@ -35,5 +36,10 @@ public class ActivityModule {
     @Provides
     TrainingPresenter provideTrainingPresenter() {
         return new TrainingPresenterImpl(activity);
+    }
+
+    @Provides
+    Resources provideResources() {
+        return activity.getResources();
     }
 }

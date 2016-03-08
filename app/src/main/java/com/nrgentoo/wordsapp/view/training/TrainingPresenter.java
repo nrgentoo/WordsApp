@@ -5,5 +5,9 @@ package com.nrgentoo.wordsapp.view.training;
  */
 public interface TrainingPresenter {
 
+    void onCreate();
+
+    void onDestroy();
+
     void getWordTasks();
 }

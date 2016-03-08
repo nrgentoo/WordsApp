@@ -13,7 +13,7 @@ import rx.Observable;
  */
 public interface SkyengAPI {
 
-    String END_POINT = "http://http://dictionary.skyeng.ru";
+    String END_POINT = "http://dictionary.skyeng.ru";
     String PREFIX = "/api/v1";
 
     /**
@@ -25,6 +25,6 @@ public interface SkyengAPI {
      */
     @GET(PREFIX + "/wordtasks")
     Observable<List<WordTask>> getWords(
-            @Query("meaningIds")List<Long> meaningIds,
+            @Query("meaningIds") String meaningIds,
             @Query("width") int width);
 }

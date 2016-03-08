@@ -55,7 +55,15 @@ public class ActionsCreator extends RxActionCreator implements Actions {
 
         int width = displayMetricsStore.getDisplayWidth();
 
-        addRxAction(action, skyengAPI.getWords(meaningIds, width)
+        // convert list to comma separated string
+        String meaningIdsStr = "";
+        for (long id : meaningIds) {
+            meaningIdsStr += id + ",";
+        }
+        // remove last comma
+        meaningIdsStr = meaningIdsStr.replaceFirst(",$", "");
+
+        addRxAction(action, skyengAPI.getWords(meaningIdsStr, width)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(wordTasks -> {
