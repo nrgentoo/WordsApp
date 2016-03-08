@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- fill with wite color -->
+    <solid android:color="@android:color/white" />
+    <!-- draw birder -->
+    <stroke android:color="@color/button_border" android:width="1dp" />
+    <!-- round corners -->
+    <corners android:radius="@dimen/button_corner_radius" />
+</shape>

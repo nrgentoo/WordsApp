@@ -2,12 +2,25 @@ package com.nrgentoo.wordsapp.view.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.nrgentoo.wordsapp.R;
+import com.nrgentoo.wordsapp.actions.Actions;
+import com.nrgentoo.wordsapp.view.common.AbstractActivity;
+import com.nrgentoo.wordsapp.view.training.TrainingActivity;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class MainActivity extends AbstractActivity {
+
+    // --------------------------------------------------------------------------------------------
+    //      FIELDS
+    // --------------------------------------------------------------------------------------------
+
+    @Inject
+    Actions actions;
 
     // --------------------------------------------------------------------------------------------
     //      UI REFERENCES
@@ -24,8 +37,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // inject this
+        getComponent().inject(this);
+
         // inflate views
         bt_start = (Button) findViewById(R.id.bt_start);
+
+        // get display width
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        int height = displayMetrics.heightPixels;
+        actions.saveDisplayMetrics(width, height);
     }
 
     @Override
@@ -50,6 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTraining() {
         // launch training activity
-        Toast.makeText(this, "Start training", Toast.LENGTH_SHORT).show();
+        startActivity(TrainingActivity.getCallingIntent(this));
     }
 }
