@@ -1,5 +1,8 @@
 package com.nrgentoo.wordsapp.common.di.module;
 
+import com.nrgentoo.wordsapp.view.answercard.AnswerCardPresenter;
+import com.nrgentoo.wordsapp.view.answercard.AnswerCardPresenterImpl;
+import com.nrgentoo.wordsapp.view.answercard.AnswerCardView;
 import com.nrgentoo.wordsapp.view.common.AbstractFragment;
 import com.nrgentoo.wordsapp.view.task.TaskPresenter;
 import com.nrgentoo.wordsapp.view.task.TaskPresenterImpl;
@@ -31,6 +34,21 @@ public class FragmentModule {
             return (TaskView) fragment;
         } else {
             throw new IllegalStateException(TaskView.class.getSimpleName() + " can be provided" +
+                    " only from fragment implemented that interface");
+        }
+    }
+
+    @Provides
+    AnswerCardPresenter provideAnswerCardPresenter() {
+        return new AnswerCardPresenterImpl(fragment);
+    }
+
+    @Provides
+    AnswerCardView provideAnswerCardView() {
+        if (fragment instanceof AnswerCardView) {
+            return (AnswerCardView) fragment;
+        } else {
+            throw new IllegalStateException(AnswerCardView.class.getSimpleName() + " can be provided" +
                     " only from fragment implemented that interface");
         }
     }
