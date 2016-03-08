@@ -11,6 +11,8 @@ import com.nrgentoo.wordsapp.common.AppRxFlux;
 import com.nrgentoo.wordsapp.network.SkyengAPI;
 import com.nrgentoo.wordsapp.store.DisplayMetricsStore;
 import com.nrgentoo.wordsapp.store.DisplayMetricsStoreImpl;
+import com.nrgentoo.wordsapp.store.WordTasksStore;
+import com.nrgentoo.wordsapp.store.WordTasksStoreImpl;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -69,5 +71,11 @@ public class ApplicationModule {
     @Provides
     DisplayMetricsStore provideDisplayMetricsStore() {
         return new DisplayMetricsStoreImpl(app, rxFlux.getDispatcher());
+    }
+
+    @Singleton
+    @Provides
+    WordTasksStore provideWordTasksStore() {
+        return new WordTasksStoreImpl(rxFlux.getDispatcher());
     }
 }

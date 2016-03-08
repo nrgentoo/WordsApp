@@ -8,6 +8,7 @@ import com.nrgentoo.wordsapp.R;
 import com.nrgentoo.wordsapp.actions.Actions;
 import com.nrgentoo.wordsapp.common.di.HasComponent;
 import com.nrgentoo.wordsapp.common.di.component.ActivityComponent;
+import com.nrgentoo.wordsapp.store.WordTasksStore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,9 @@ public class TrainingPresenterImpl implements TrainingPresenter {
     Actions actions;
 
     @Inject
+    WordTasksStore wordTasksStore;
+
+    @Inject
     Resources resources;
 
     // --------------------------------------------------------------------------------------------
@@ -61,6 +65,8 @@ public class TrainingPresenterImpl implements TrainingPresenter {
     public void onDestroy() {
         // unregister event bus
         eventBus.unregister(this);
+
+        view = null;
     }
 
     @Override
@@ -84,11 +90,24 @@ public class TrainingPresenterImpl implements TrainingPresenter {
 
     @SuppressWarnings("unused")
     public void onEvent(RxStoreChange change) {
-
+        switch (change.getStoreId()) {
+            case WordTasksStore.ID:
+                switch (change.getRxAction().getType()) {
+                    case Actions.GET_WORDS:
+                        view.hideProgress();
+                        // show first card
+                        break;
+                }
+                break;
+        }
     }
 
     @SuppressWarnings("unused")
     public void onEvent(RxError error) {
-
+        switch (error.getAction().getType()) {
+            case Actions.GET_WORDS:
+                // show error
+                break;
+        }
     }
 }

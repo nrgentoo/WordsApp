@@ -47,12 +47,23 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
         // inject
         getComponent().inject(this);
 
+        // init presenter
+        presenter.onCreate();
+
         // inflate views
         progress = (ProgressBar) findViewById(R.id.progress);
         sv_content = (ScrollView) findViewById(R.id.sv_content);
 
         // get data
         presenter.getWordTasks();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // destroy presenter
+        presenter.onDestroy();
     }
 
     // --------------------------------------------------------------------------------------------

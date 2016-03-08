@@ -11,6 +11,8 @@ import com.nrgentoo.wordsapp.common.di.component.DaggerApplicationComponent;
 import com.nrgentoo.wordsapp.common.di.module.ApplicationModule;
 import com.nrgentoo.wordsapp.store.DisplayMetricsStore;
 import com.nrgentoo.wordsapp.store.DisplayMetricsStoreImpl;
+import com.nrgentoo.wordsapp.store.WordTasksStore;
+import com.nrgentoo.wordsapp.store.WordTasksStoreImpl;
 
 import javax.inject.Inject;
 
@@ -35,6 +37,9 @@ public class App extends Application implements HasComponent<ApplicationComponen
     // stores
     @Inject
     DisplayMetricsStore displayMetricsStore;
+
+    @Inject
+    WordTasksStore wordTasksStore;
 
     // --------------------------------------------------------------------------------------------
     //      PUBLIC METHODS
@@ -94,5 +99,6 @@ public class App extends Application implements HasComponent<ApplicationComponen
     public void onRxStoresRegister() {
         // register stores
         ((DisplayMetricsStoreImpl) displayMetricsStore).register();
+        ((WordTasksStoreImpl) wordTasksStore).register();
     }
 }
