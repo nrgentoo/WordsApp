@@ -16,4 +16,6 @@ public interface TrainingView {
     void showAnswerCard();
 
     void showFinishCard();
+
+    void setTrainingProgress(int progress, int total);
 }

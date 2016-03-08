@@ -28,6 +28,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     private Stack<WordTask> shuffled;
     private int rightAnswersCount;
     private boolean trainingInProgress;
+    private int currentWordNumber;
 
     // --------------------------------------------------------------------------------------------
     //      CONSTRUCTOR
@@ -70,6 +71,11 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
         return trainingInProgress;
     }
 
+    @Override
+    public int getCurrentWordNumber() {
+        return currentWordNumber;
+    }
+
     // --------------------------------------------------------------------------------------------
     //      RX STORE STORE
     // --------------------------------------------------------------------------------------------
@@ -92,6 +98,8 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
                 // update score
                 boolean isRightAnswer = action.get(Keys.PARAM_IS_RIGHT_ANSWER);
                 if (isRightAnswer) rightAnswersCount++;
+
+                updateCurrentWordNumber();
                 break;
             case Actions.MOVE_TO_NEXT_WORD:
                 // pop recent word
@@ -126,5 +134,13 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
         shuffled = null;
         rightAnswersCount = 0;
         trainingInProgress = false;
+    }
+
+    private void updateCurrentWordNumber() {
+        if (shuffled != null) {
+            currentWordNumber = TOTAL_WORDS - shuffled.size() + 1;
+        } else {
+            currentWordNumber = 0;
+        }
     }
 }
