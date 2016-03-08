@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
@@ -37,8 +39,10 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
     //      UI REFERENCES
     // --------------------------------------------------------------------------------------------
 
-    ProgressBar progress;
-    ScrollView sv_content;
+    private ProgressBar progress;
+    private ScrollView sv_content;
+    private View training_progress;
+    private View total_progress;
 
     // --------------------------------------------------------------------------------------------
     //      LIFECYCLE
@@ -52,12 +56,14 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
         // inject
         getComponent().inject(this);
 
-        // init presenter
-        presenter.onCreate();
-
         // inflate views
         progress = (ProgressBar) findViewById(R.id.progress);
         sv_content = (ScrollView) findViewById(R.id.sv_content);
+        training_progress = findViewById(R.id.training_progress);
+        total_progress = findViewById(R.id.total_progress);
+
+        // init presenter
+        presenter.onCreate();
 
         // get data
         presenter.getWordTasks();
@@ -127,5 +133,16 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                 .replace(R.id.container, new FinishCardFragment())
                 .commit();
+    }
+
+    @Override
+    public void setTrainingProgress(int progress, int total) {
+        training_progress.post(() -> {
+            float ratio = progress / (float) (total);
+            int width = (int) (total_progress.getWidth() * ratio);
+            FrameLayout.LayoutParams param = new FrameLayout
+                    .LayoutParams(width, FrameLayout.LayoutParams.MATCH_PARENT);
+            training_progress.setLayoutParams(param);
+        });
     }
 }

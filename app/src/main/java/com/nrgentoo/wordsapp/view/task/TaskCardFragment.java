@@ -24,6 +24,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import icepick.State;
+
 /**
  * Task card fragment
  */
@@ -39,6 +41,9 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
     TextToSpeech textToSpeech;
 
     Map<String, Button> answerButtonIdMap = new HashMap<>();
+
+    @State
+    boolean audioPlayed;
 
     // --------------------------------------------------------------------------------------------
     //      UI REFERENCES
@@ -131,6 +136,9 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
 
     @Override
     public void playSound(String soundUrl, String word) {
+        // do not play same audio many times
+        if (audioPlayed) return;
+
         MediaPlayer mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -141,6 +149,7 @@ public class TaskCardFragment extends AbstractFragment implements TaskView {
             // play with text-to-speech
             speakOut(word);
         }
+        audioPlayed = true;
     }
 
     @Override

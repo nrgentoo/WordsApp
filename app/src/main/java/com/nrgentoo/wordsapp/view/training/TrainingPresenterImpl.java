@@ -58,6 +58,10 @@ public class TrainingPresenterImpl implements TrainingPresenter {
     public void onCreate() {
         // register event bus
         eventBus.register(this);
+
+        // set progress
+        view.setTrainingProgress(wordTasksStore.getCurrentWordNumber(),
+                wordTasksStore.getTotalWordsCount());
     }
 
     @Override
@@ -109,10 +113,18 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                     case Actions.START_TRAINING:
                         // show first card
                         view.nextTask();
+
+                        // set progress
+                        view.setTrainingProgress(0,
+                                wordTasksStore.getTotalWordsCount());
                         break;
                     case Actions.MOVE_TO_ANSWER:
                         // show answer card
                         view.showAnswerCard();
+
+                        // set progress
+                        view.setTrainingProgress(wordTasksStore.getCurrentWordNumber(),
+                                wordTasksStore.getTotalWordsCount());
                         break;
                     case Actions.MOVE_TO_NEXT_WORD:
                         if (wordTasksStore.getNext() != null) {

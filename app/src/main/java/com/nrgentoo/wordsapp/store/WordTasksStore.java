@@ -20,4 +20,6 @@ public interface WordTasksStore {
     int getTotalWordsCount();
 
     boolean isTrainingInProgress();
+
+    int getCurrentWordNumber();
 }

@@ -1,5 +1,6 @@
 package com.nrgentoo.wordsapp.view.common;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.nrgentoo.wordsapp.App;
@@ -9,6 +10,8 @@ import com.nrgentoo.wordsapp.common.di.component.DaggerFragmentComponent;
 import com.nrgentoo.wordsapp.common.di.component.FragmentComponent;
 import com.nrgentoo.wordsapp.common.di.module.ActivityModule;
 import com.nrgentoo.wordsapp.common.di.module.FragmentModule;
+
+import icepick.Icepick;
 
 /**
  * Abstract fragment
@@ -36,5 +39,21 @@ abstract public class AbstractFragment extends Fragment implements HasComponent<
         }
 
         return fragmentComponent;
+    }
+
+    // --------------------------------------------------------------------------------------------
+    //      LIFECYCLE
+    // --------------------------------------------------------------------------------------------
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 }
