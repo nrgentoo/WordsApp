@@ -96,6 +96,7 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                     case Actions.GET_WORDS:
                         view.hideProgress();
                         // show first card
+                        view.showTask(wordTasksStore.getShuffled(10).get(0));
                         break;
                 }
                 break;

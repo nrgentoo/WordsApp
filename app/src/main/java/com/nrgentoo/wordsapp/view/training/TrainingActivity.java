@@ -8,7 +8,9 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.nrgentoo.wordsapp.R;
+import com.nrgentoo.wordsapp.model.WordTask;
 import com.nrgentoo.wordsapp.view.common.AbstractActivity;
+import com.nrgentoo.wordsapp.view.task.TaskCardFragment;
 
 import javax.inject.Inject;
 
@@ -80,5 +82,12 @@ public class TrainingActivity extends AbstractActivity implements TrainingView {
     public void hideProgress() {
         progress.setVisibility(View.GONE);
         sv_content.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showTask(WordTask wordTask) {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, new TaskCardFragment())
+                .commit();
     }
 }
