@@ -106,6 +106,14 @@ public class TrainingPresenterImpl implements TrainingPresenter {
                         // show answer card
                         view.showAnswerCard();
                         break;
+                    case Actions.MOVE_TO_NEXT_WORD:
+                        if (wordTasksStore.getNext() != null) {
+                            // show next card
+                            view.nextTask();
+                        } else {
+                            // finish training
+                        }
+                        break;
                 }
                 break;
         }

@@ -2,4 +2,5 @@
 <resources>
     <string name="start_training">Начать тренировку</string>
     <string name="dont_remember">Не помню</string>
+    <string name="next">Дальше</string>
 </resources>

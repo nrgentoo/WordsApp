@@ -104,8 +104,4 @@ public class TaskPresenterImpl implements TaskPresenter {
         // move to the answer card
         actions.moveToAnswer(false);
     }
-
-    // --------------------------------------------------------------------------------------------
-    //      RX FLUX EVENTS
-    // --------------------------------------------------------------------------------------------
 }

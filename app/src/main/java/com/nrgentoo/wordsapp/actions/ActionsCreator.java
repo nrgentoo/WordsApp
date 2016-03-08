@@ -104,4 +104,12 @@ public class ActionsCreator extends RxActionCreator implements Actions {
         // post action
         postRxAction(action);
     }
+
+    @Override
+    public void moveToNextWord() {
+        RxAction action = newRxAction(MOVE_TO_NEXT_WORD);
+
+        // post action
+        postRxAction(action);
+    }
 }
