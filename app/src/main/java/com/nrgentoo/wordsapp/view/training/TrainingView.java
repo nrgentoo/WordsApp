@@ -11,5 +11,5 @@ public interface TrainingView {
 
     void hideProgress();
 
-    void showTask(WordTask wordTask);
+    void nextTask();
 }

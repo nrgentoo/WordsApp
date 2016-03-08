@@ -22,6 +22,7 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     // --------------------------------------------------------------------------------------------
 
     private List<WordTask> wordTasks;
+    private List<WordTask> shuffled;
 
     // --------------------------------------------------------------------------------------------
     //      CONSTRUCTOR
@@ -41,12 +42,12 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
     }
 
     @Override
-    public List<WordTask> getShuffled(int size) {
-        List<WordTask> shuffled = new ArrayList<>();
-        shuffled.addAll(wordTasks);
-        Collections.shuffle(shuffled);
-
-        return shuffled.subList(0, size);
+    public WordTask getNext() {
+        if (!shuffled.isEmpty()) {
+            return shuffled.get(shuffled.size() - 1);
+        } else {
+            return null;
+        }
     }
 
     // --------------------------------------------------------------------------------------------
@@ -59,10 +60,26 @@ public class WordTasksStoreImpl extends RxStore implements WordTasksStore {
             case Actions.GET_WORDS:
                 wordTasks = action.get(Keys.RESULT_GET_WORDS);
                 break;
+            case Actions.START_TRAINING:
+                // shuffle words
+                shuffleWords();
+                break;
             default:
                 return;
         }
 
         postChange(new RxStoreChange(ID, action));
+    }
+
+    // --------------------------------------------------------------------------------------------
+    //      PRIVATE METHODS
+    // --------------------------------------------------------------------------------------------
+
+    private void shuffleWords() {
+        shuffled = new ArrayList<>();
+        shuffled.addAll(wordTasks);
+        Collections.shuffle(shuffled);
+
+        shuffled = shuffled.subList(0, 10);
     }
 }

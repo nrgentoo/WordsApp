@@ -14,5 +14,5 @@ public interface TaskView {
      */
     void setAnswers(List<String> answers);
 
-    void playSound();
+    void playSound(String soundUrl);
 }

@@ -5,5 +5,9 @@ package com.nrgentoo.wordsapp.view.task;
  */
 public interface TaskPresenter {
 
+    void onCreate();
+
+    void onDestroy();
+
     void checkAnswer(String answer);
 }
